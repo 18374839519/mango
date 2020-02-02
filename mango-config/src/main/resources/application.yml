@@ -1,0 +1,25 @@
+server:
+  port: 8088
+
+spring:
+  application:
+    name: mango-config
+  cloud:
+    consul:
+      host: 127.0.0.1
+      port: 8500
+      discovery:
+        instance-id: ${spring.application.name}:${server.port}
+    config:
+      label: sys-java1.0  # git仓库分支
+      server:
+        git:
+          uri: https://git@github.com:18374839519/mango.git  # 配置git仓库地址
+          search-paths: config-repo  # git仓库地址下的想对地址，可配置多个，用","分割
+          username: 18374839519  # git仓库账号
+          password: ddx19920930  # git仓库密码
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mango?useUnicode=true&zeroDataTimeBehavior=convertToNull&autoReconnect=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+    userName: root
+    password: ddx19920930
