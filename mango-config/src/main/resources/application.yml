@@ -10,6 +10,8 @@ spring:
       port: 8500
       discovery:
         instance-id: ${spring.application.name}:${server.port}
+    inetutils:
+      timeout-seconds: 10
     config:
       label: sys-java1.0  # git仓库分支
       server:
