@@ -14,7 +14,7 @@ spring:
       label: sys-java1.0  # git仓库分支
       server:
         git:
-          uri: https://git@github.com:18374839519/mango.git  # 配置git仓库地址
+          uri: https://github.com/18374839519/mango.git  # 配置git仓库地址
           search-paths: config-repo  # git仓库地址下的想对地址，可配置多个，用","分割
           username: 18374839519  # git仓库账号
           password: ddx19920930  # git仓库密码
