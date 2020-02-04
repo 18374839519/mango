@@ -1,6 +1,6 @@
-package com.lous.mango.consumer.hystrix;
+package com.louis.mango.consumer.hystrix;
 
-import com.lous.mango.consumer.feignService.MangoProducerService;
+import com.louis.mango.consumer.feignService.MangoProducerService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 

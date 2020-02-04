@@ -1,6 +1,6 @@
-package com.lous.mango.consumer.controller;
+package com.louis.mango.consumer.controller;
 
-import com.lous.mango.consumer.feignService.MangoProducerService;
+import com.louis.mango.consumer.feignService.MangoProducerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

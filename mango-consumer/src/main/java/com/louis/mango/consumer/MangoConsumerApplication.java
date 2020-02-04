@@ -1,4 +1,4 @@
-package com.lous.mango.consumer;
+package com.louis.mango.consumer;
 
 import com.netflix.hystrix.contrib.metrics.eventstream.HystrixMetricsStreamServlet;
 import org.springframework.boot.SpringApplication;

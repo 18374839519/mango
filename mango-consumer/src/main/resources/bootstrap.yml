@@ -6,6 +6,7 @@ spring:
       port: 8500
       discovery:
         instance-id: ${spring.application.name}:${server.port}
+        service-name: ${spring.application.name}
     config:
       discovery:
         enabled: true # 开启服务发现
@@ -13,3 +14,8 @@ spring:
       name: consumer # 对应{application}部分
       profile: dev # 对应{profile}部分
       label: sys-java1.0 # git分支
+  rabbitmq:
+    host: localhost
+    port: 5762
+    username: guest
+    password: guest

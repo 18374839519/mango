@@ -1,4 +1,4 @@
-package com.lous.mango.consumer.controller;
+package com.louis.mango.consumer.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;

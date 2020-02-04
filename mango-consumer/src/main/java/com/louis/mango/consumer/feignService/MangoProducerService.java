@@ -1,6 +1,6 @@
-package com.lous.mango.consumer.feignService;
+package com.louis.mango.consumer.feignService;
 
-import com.lous.mango.consumer.hystrix.MangoProducerHystrix;
+import com.louis.mango.consumer.hystrix.MangoProducerHystrix;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 
