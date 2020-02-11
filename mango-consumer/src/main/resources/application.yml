@@ -30,9 +30,9 @@ management:
       show-details: always
 
 #ribbon 负载均衡策略选择, service-producer为注册的服务名
-#service-producer:
-  #ribbon:
-    #NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule #这里选择随机策略(RandomRule)
+service-producer:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule #这里选择随机策略(RandomRule)
 
 #开启熔断器
 feign:
