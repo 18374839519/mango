@@ -1,4 +1,4 @@
-package com.louis.mango.core.kaptcha;
+package com.louis.mango.admin.config.kaptcha;
 
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
