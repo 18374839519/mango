@@ -27,4 +27,19 @@ public class SysMenuServiceImpl implements SysMenuService {
         }
         return perms;
     }
+
+    @Override
+    public List<SysMenu> selectAll() {
+        return sysMenuMapper.selectAll();
+    }
+
+    @Override
+    public boolean insert(SysMenu record) {
+        return sysMenuMapper.insert(record);
+    }
+
+    @Override
+    public int checkMenuName(String name, int parentId) {
+        return sysMenuMapper.checkMenuName(name, parentId);
+    }
 }

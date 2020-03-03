@@ -19,12 +19,12 @@ public class TreeData {
 
     private List<?> data; // 数据
 
-    public TreeData(String id, String label, String upId, String upNm) {
+    /*public TreeData(String id, String label, String upId, String upNm) {
         this.id = id;
         this.label = label;
         this.upId = upId;
         this.upNm = upNm;
-    }
+    }*/
 
     public String getId() {
         return id;

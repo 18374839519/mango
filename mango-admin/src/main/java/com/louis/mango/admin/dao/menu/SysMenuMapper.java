@@ -5,15 +5,15 @@ import com.louis.mango.admin.model.menu.SysMenu;
 import java.util.List;
 
 public interface SysMenuMapper {
-    int deleteByPrimaryKey(Long id);
+    boolean deleteByPrimaryKey(Long id);
 
-    int insert(SysMenu record);
+    boolean insert(SysMenu record);
 
     SysMenu selectByPrimaryKey(Long id);
 
     List<SysMenu> selectAll();
 
-    int updateByPrimaryKey(SysMenu record);
+    boolean updateByPrimaryKey(SysMenu record);
 
     /**
      * 查找用户的菜单权限标识集合
@@ -21,4 +21,12 @@ public interface SysMenuMapper {
      * @return
      */
     List<SysMenu> selectPermissionsByUserName(String userName);
+
+    /**
+     * 校验名称是否存在
+     * @param name
+     * @param parentId
+     * @return
+     */
+    int checkMenuName(String name, int parentId);
 }

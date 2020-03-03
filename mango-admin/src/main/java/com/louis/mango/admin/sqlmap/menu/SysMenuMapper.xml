@@ -14,7 +14,7 @@
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="last_update_by" property="lastUpdateBy" jdbcType="VARCHAR" />
     <result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
-    <result column="del_flag" property="delFlag" jdbcType="TINYINT" />
+    <result column="del_flag" property="delFlag" jdbcType="INTEGER" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from sys_menu
@@ -57,12 +57,17 @@
   <select id="selectAll" resultMap="BaseResultMap" >
     select id, name, parent_id, url, perms, type, icon, order_num, create_by, create_time, 
     last_update_by, last_update_time, del_flag
-    from sys_menu
+    from sys_menu order by order_num asc
   </select>
 
   <select id="selectPermissionsByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
   	select m.* from sys_menu m, sys_user u, sys_user_role ur, sys_role_menu rm
   	where u.name = #{userName,jdbcType=BIGINT} and u.id = ur.user_id
   	and ur.role_id = rm.role_id and rm.menu_id = m.id
+  </select>
+
+  <!--校验菜单名称是否存在-->
+  <select id="checkMenuName" parameterType="java.util.Map" resultType="java.lang.Integer">
+  	select count(*) from sys_menu where name = #{name,jdbcType=VARCHAR} and parent_id = #{parentId,jdbcType=BIGINT}
   </select>
 </mapper>

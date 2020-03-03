@@ -52,8 +52,8 @@ public class TreeDataUtils {
 
     /***********************************测试******************************************/
     public static void main(String[] args) {
-        List<TreeData>  menuList= new ArrayList<>();
-        /*插入一些数据*/
+        /*List<TreeData>  menuList= new ArrayList<>();
+        *//*插入一些数据*//*
         menuList.add(new TreeData("GN001D000","系统管理","0","/admin"));
         menuList.add(new TreeData("GN001D100","权限管理","GN001D000","admin"));
         menuList.add(new TreeData("GN001D110","密码修改","GN001D100","admin"));
@@ -62,11 +62,11 @@ public class TreeDataUtils {
         menuList.add(new TreeData("GN001D210","在线用户","GN001D200","admin"));
         menuList.add(new TreeData("GN002D000","订阅区","0","admin"));
         menuList.add(new TreeData("GN003D000","未知领域","0","admin"));
-        /*让我们创建树*/
+        *//*让我们创建树*//*
         TreeDataUtils menuTree =new TreeDataUtils(menuList);
         menuList=menuTree.builTree();
-        /*转为json看看效果*/
+        *//*转为json看看效果*//*
         String jsonOutput= JSON.toJSONString(menuList);
-        System.out.println(jsonOutput);
+        System.out.println(jsonOutput);*/
     }
 }

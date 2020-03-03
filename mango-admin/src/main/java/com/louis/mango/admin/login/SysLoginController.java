@@ -7,6 +7,7 @@ import com.louis.mango.admin.security.utils.PasswordUtils;
 import com.louis.mango.admin.security.utils.SecurityUtils;
 import com.louis.mango.admin.security.utils.model.JwtAuthenticatioToken;
 import com.louis.mango.admin.service.user.impl.SysUserServiceImpl;
+import com.louis.mango.common.utils.captcha.VerifyCode;
 import com.louis.mango.common.utils.http.HttpResult;
 import com.louis.mango.common.utils.http.HttpResultUtils;
 import com.louis.mango.common.utils.http.HttpStatus;
@@ -23,6 +24,8 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
@@ -43,11 +46,10 @@ public class SysLoginController {
     /**
      * 登录验证码
      * @param response
-     * @param request
      */
     @GetMapping("/captcha.jpg")
-    public void captcha(HttpServletResponse response, HttpServletRequest request) {
-        response.setHeader("Cache-Control", "no-store, no-cache");
+    public HttpResult captcha(HttpServletResponse response) {
+        /*response.setHeader("Cache-Control", "no-store, no-cache");
         response.setContentType("image/jpeg");
 
         // 生成文字验证码
@@ -55,14 +57,24 @@ public class SysLoginController {
         // 生成图片验证码
         BufferedImage image = producer.createImage(text);
         // 保存验证码到session
-        request.getSession().setAttribute(Constants.KAPTCHA_SESSION_KEY, text);
+        //request.getSession().setAttribute(Constants.KAPTCHA_SESSION_KEY, text);
         try {
             ServletOutputStream outputStream = response.getOutputStream();
             ImageIO.write(image, "jpg", outputStream);
             IOUtils.closeQuietly(outputStream);
         } catch (IOException e) {
             e.printStackTrace();
+        }*/
+        try {
+            VerifyCode verifyCode = new VerifyCode();
+            verifyCode.output(verifyCode.getImage(), new FileOutputStream("F:/subjects/mangoWeb/frame-front/src/assets/images/kaptcha.jpg"));
+            String text = verifyCode.getText();
+            return HttpResultUtils.success(text);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
+        return HttpResultUtils.success();
     }
 
     /**
@@ -73,9 +85,9 @@ public class SysLoginController {
     public HttpResult login(LoginBean loginBean, HttpServletRequest request) {
         String userName = loginBean.getAccount();
         String password = loginBean.getPassword();
-        String captcha = loginBean.getCaptcha();
+        //String captcha = loginBean.getCaptcha();
         // 从session中获取之前保存的验证码，跟前台传来的验证码进行匹配
-        Object kaptcha = request.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
+        /*Object kaptcha = request.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
 
         if (kaptcha == null) {
             throw new BaseException(HttpStatus.ERROR_PARAMS_VALIDATOR, "验证码已失效");
@@ -83,7 +95,7 @@ public class SysLoginController {
 
         if (!kaptcha.equals(captcha)) {
             throw new BaseException(HttpStatus.ERROR_PARAMS_VALIDATOR, "验证码不正确");
-        }
+        }*/
 
         // 用户信息
         SysUser sysUser = sysUserServiceImpl.selectByUserName(userName);

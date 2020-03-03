@@ -27,7 +27,7 @@ public class SysMenu {
 
     private Date lastUpdateTime;
 
-    private Byte delFlag;
+    private int delFlag;
 
     public Long getId() {
         return id;
@@ -125,11 +125,11 @@ public class SysMenu {
         this.lastUpdateTime = lastUpdateTime;
     }
 
-    public Byte getDelFlag() {
+    public int getDelFlag() {
         return delFlag;
     }
 
-    public void setDelFlag(Byte delFlag) {
+    public void setDelFlag(int delFlag) {
         this.delFlag = delFlag;
     }
 }
