@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Service
@@ -15,6 +16,11 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     @Autowired
     private SysMenuMapper sysMenuMapper;
+
+    @Override
+    public SysMenu selectByPrimaryKey(int id) {
+        return sysMenuMapper.selectByPrimaryKey(id);
+    }
 
     @Override
     public Set<String> selectPermissionsByUserName(String userName) {
@@ -41,5 +47,20 @@ public class SysMenuServiceImpl implements SysMenuService {
     @Override
     public int checkMenuName(String name, int parentId) {
         return sysMenuMapper.checkMenuName(name, parentId);
+    }
+
+    @Override
+    public boolean deleteByPrimaryKey(List<Integer> idList) {
+        return sysMenuMapper.deleteByPrimaryKey(idList);
+    }
+
+    @Override
+    public List<Integer> selectByParentId(List<Integer> parentIdList) {
+        return sysMenuMapper.selectByParentId(parentIdList);
+    }
+
+    @Override
+    public boolean updateById(SysMenu record) {
+        return sysMenuMapper.updateById(record);
     }
 }

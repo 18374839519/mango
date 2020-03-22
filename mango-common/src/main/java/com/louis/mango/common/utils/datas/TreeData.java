@@ -17,7 +17,7 @@ public class TreeData {
 
     private List<TreeData> children; // 子级
 
-    private List<?> data; // 数据
+    private Object data; // 数据
 
     /*public TreeData(String id, String label, String upId, String upNm) {
         this.id = id;
@@ -66,11 +66,11 @@ public class TreeData {
         this.children = children;
     }
 
-    public List<?> getData() {
+    public Object getData() {
         return data;
     }
 
-    public void setData(List<?> data) {
+    public void setData(Object data) {
         this.data = data;
     }
 }

@@ -1,15 +1,17 @@
 package com.louis.mango.admin.dao.menu;
 
 import com.louis.mango.admin.model.menu.SysMenu;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface SysMenuMapper {
-    boolean deleteByPrimaryKey(Long id);
+    boolean deleteByPrimaryKey(@Param("idList")List<Integer> idList);
 
     boolean insert(SysMenu record);
 
-    SysMenu selectByPrimaryKey(Long id);
+    SysMenu selectByPrimaryKey(int id);
 
     List<SysMenu> selectAll();
 
@@ -29,4 +31,18 @@ public interface SysMenuMapper {
      * @return
      */
     int checkMenuName(String name, int parentId);
+
+    /**
+     * 根据父节点查询
+     * @param parentIdList
+     * @return
+     */
+    List<Integer> selectByParentId(@Param("parentIdList")List<Integer> parentIdList);
+
+    /**
+     * 根据id修改菜单/目录
+     * @param record
+     * @return
+     */
+    boolean updateById(SysMenu record);
 }

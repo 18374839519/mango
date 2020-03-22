@@ -35,10 +35,10 @@ public class SysMenuController {
         List<TreeData> listMenu = new ArrayList<>();
         for (int i=0; i<list.size(); i++) {
             TreeData treeData = new TreeData();
-            treeData.setId(list.get(i).getId().toString());
-            treeData.setUpId(list.get(i).getParentId().toString());
+            treeData.setId(String.valueOf(list.get(i).getId()));
+            treeData.setUpId(String.valueOf(list.get(i).getParentId()));
             treeData.setLabel(list.get(i).getName());
-            treeData.setData(list);
+            treeData.setData(list.get(i));
             listMenu.add(treeData);
         }
         TreeDataUtils treeDataUtils = new TreeDataUtils(listMenu);
@@ -66,4 +66,50 @@ public class SysMenuController {
         }
         return HttpResultUtils.success(true);
     }
+
+    @PostMapping("/deleteMenu")
+    public HttpResult deleteMenu(Long id) {
+        List<Integer> list = new ArrayList<>();
+        list.add(id.intValue());
+        List<Integer> parentIdList = selectByParentId(list);
+        parentIdList.addAll(list);
+        boolean result = sysMenuService.deleteByPrimaryKey(parentIdList);
+        if (!result) {
+            throw new BaseException(HttpStatus.ERROR_SERVICE_VALIDATOR, "删除失败");
+        }
+        return HttpResultUtils.success();
+    }
+
+    /**
+     * 递归获取所有id
+     * @param parentIdList
+     * @return
+     */
+    private List<Integer> selectByParentId(List<Integer> parentIdList) {
+        List<Integer> returnList = new ArrayList<>();
+        List<Integer> list = sysMenuService.selectByParentId(parentIdList);
+        if (list.size() > 0) {
+            returnList.addAll(list);
+            selectByParentId(list);
+        }
+        return returnList;
+    }
+
+    @PostMapping("/updateById")
+    public HttpResult updateById(HttpServletRequest request, SysMenu sysMenu) {
+        sysMenu.setLastUpdateBy(JwtTokenUtils.getUsernameFromToken(JwtTokenUtils.getToken(request)));
+        sysMenu.setLastUpdateTime(new Date());
+        boolean result = sysMenuService.updateById(sysMenu);
+        if (!result) {
+            throw new BaseException(HttpStatus.ERROR_SERVICE_VALIDATOR, "更新失败");
+        }
+        return HttpResultUtils.success();
+    }
+
+    @GetMapping("/selectById")
+    public HttpResult selectById(int id) {
+        SysMenu sysMenu = sysMenuService.selectByPrimaryKey(id);
+        return HttpResultUtils.success(sysMenu);
+    }
+
 }

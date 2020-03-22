@@ -3,11 +3,11 @@ package com.louis.mango.admin.model.menu;
 import java.util.Date;
 
 public class SysMenu {
-    private Long id;
+    private int id;
 
     private String name;
 
-    private Long parentId;
+    private int parentId;
 
     private String url;
 
@@ -29,11 +29,11 @@ public class SysMenu {
 
     private int delFlag;
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -45,11 +45,11 @@ public class SysMenu {
         this.name = name == null ? null : name.trim();
     }
 
-    public Long getParentId() {
+    public int getParentId() {
         return parentId;
     }
 
-    public void setParentId(Long parentId) {
+    public void setParentId(int parentId) {
         this.parentId = parentId;
     }
 

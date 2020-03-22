@@ -16,10 +16,23 @@
     <result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
     <result column="del_flag" property="delFlag" jdbcType="INTEGER" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+  <delete id="deleteByPrimaryKey">
     delete from sys_menu
-    where id = #{id,jdbcType=BIGINT}
+    where id in
+    <foreach collection="idList" item="id" index="index" open="(" close=")" separator=",">
+      #{id}
+    </foreach>
   </delete>
+
+  <!--根据parentId查询id-->
+  <select id="selectByParentId" resultType="java.lang.Integer">
+    select id from sys_menu
+    where parent_id in
+    <foreach collection="parentIdList" item="parentId" index="index" open="(" close=")" separator=",">
+      #{parentId}
+    </foreach>
+  </select>
+
   <insert id="insert" parameterType="com.louis.mango.admin.model.menu.SysMenu" >
     insert into sys_menu (id, name, parent_id, 
       url, perms, type, icon, 
@@ -48,7 +61,19 @@
       del_flag = #{delFlag,jdbcType=TINYINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+
+  <update id="updateById" parameterType="com.louis.mango.admin.model.menu.SysMenu" >
+    update sys_menu
+    set name = #{name,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      icon = #{icon,jdbcType=VARCHAR},
+      order_num = #{orderNum,jdbcType=INTEGER},
+      last_update_by = #{lastUpdateBy,jdbcType=VARCHAR},
+      last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select id, name, parent_id, url, perms, type, icon, order_num, create_by, create_time, 
     last_update_by, last_update_time, del_flag
     from sys_menu
