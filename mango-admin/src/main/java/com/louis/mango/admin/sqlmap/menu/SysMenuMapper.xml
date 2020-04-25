@@ -67,6 +67,7 @@
     set name = #{name,jdbcType=VARCHAR},
       type = #{type,jdbcType=INTEGER},
       icon = #{icon,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
       order_num = #{orderNum,jdbcType=INTEGER},
       last_update_by = #{lastUpdateBy,jdbcType=VARCHAR},
       last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP}

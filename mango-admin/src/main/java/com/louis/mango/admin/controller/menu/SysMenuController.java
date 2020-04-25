@@ -2,15 +2,13 @@ package com.louis.mango.admin.controller.menu;
 
 import com.louis.mango.admin.model.menu.SysMenu;
 import com.louis.mango.admin.security.utils.JwtTokenUtils;
-import com.louis.mango.admin.security.utils.SecurityUtils;
 import com.louis.mango.admin.service.menu.impl.SysMenuServiceImpl;
-import com.louis.mango.common.utils.datas.TreeData;
-import com.louis.mango.common.utils.datas.TreeDataUtils;
+import com.louis.mango.common.utils.datas.MenuData;
+import com.louis.mango.common.utils.datas.MenuDataUtils;
 import com.louis.mango.common.utils.http.HttpResult;
 import com.louis.mango.common.utils.http.HttpResultUtils;
 import com.louis.mango.common.utils.http.HttpStatus;
 import com.louis.mango.core.exception.BaseException;
-import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,17 +30,22 @@ public class SysMenuController {
     @GetMapping("/getAllMenu")
     public HttpResult getAllMenu() {
         List<SysMenu> list = sysMenuService.selectAll();
-        List<TreeData> listMenu = new ArrayList<>();
+        List<MenuData> listMenu = new ArrayList<>();
         for (int i=0; i<list.size(); i++) {
-            TreeData treeData = new TreeData();
-            treeData.setId(String.valueOf(list.get(i).getId()));
-            treeData.setUpId(String.valueOf(list.get(i).getParentId()));
-            treeData.setLabel(list.get(i).getName());
-            treeData.setData(list.get(i));
-            listMenu.add(treeData);
+            MenuData menuData = new MenuData();
+            menuData.setId(String.valueOf(list.get(i).getId()));
+            menuData.setUpId(String.valueOf(list.get(i).getParentId()));
+            menuData.setType(list.get(i).getIcon());
+            if (list.get(i).getUrl() != null && !"".equals(list.get(i).getUrl())) {
+                String[] names = list.get(i).getUrl().split("/");
+                menuData.setName(names[names.length-1].split("\\.")[0]); // 路由名称，取vue文件名称
+            }
+            menuData.setText(list.get(i).getName());
+            menuData.setData(list.get(i));
+            listMenu.add(menuData);
         }
-        TreeDataUtils treeDataUtils = new TreeDataUtils(listMenu);
-        List<TreeData> tree = treeDataUtils.builTree();
+        MenuDataUtils menuDataUtils = new MenuDataUtils(listMenu);
+        List<MenuData> tree = menuDataUtils.builTree();
         return HttpResultUtils.success(tree);
     }
 
